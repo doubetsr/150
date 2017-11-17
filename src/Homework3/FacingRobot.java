@@ -1,5 +1,8 @@
 package Homework3;
 
+/**
+ * Facing robot class.
+ */
 public abstract class FacingRobot extends Robot {
     private int facing;
 
