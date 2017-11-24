@@ -144,7 +144,7 @@ public class Lab11 {
 
         System.out.println("\nJava 8 method - much more efficient and manageable");
         //Step 6. insert code here
-        System.out.println(employees.stream().filter(e -> e.getAccessCode() == 2));
+//        System.out.println(employees.stream().filter(e -> e.getAccessCode() == 2) && );
 
     }
 
