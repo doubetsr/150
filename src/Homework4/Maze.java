@@ -2,6 +2,7 @@ package Homework4;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,25 +21,32 @@ public class Maze {
     /**
      * Constructor that reads the maze from a file.
      */
-    public Maze(File inputFile) throws IOException {
-        Scanner readFile = new Scanner(inputFile);
+    public Maze(File inputFile) {
 
-        rows = readFile.nextInt();
-        cols = readFile.nextInt();
-        startrow = readFile.nextInt();
-        startcol = readFile.nextInt();
-        exitrow = readFile.nextInt();
-        exitcol = readFile.nextInt();
-        readFile.nextLine(); //rest the buffer
-        cell = new char[rows][cols];
+            try {
+            Scanner readFile = new Scanner(inputFile);
 
-        int r = 0;
-        while (r < rows) {
-            String line = readFile.nextLine();
-            for (int c = 0; c < cols; c++) {
-                cell[r][c] = line.charAt(c);
+            rows = readFile.nextInt();
+            cols = readFile.nextInt();
+            startrow = readFile.nextInt();
+            startcol = readFile.nextInt();
+            exitrow = readFile.nextInt();
+            exitcol = readFile.nextInt();
+            readFile.nextLine(); //rest the buffer
+            cell = new char[rows][cols];
+
+            int r = 0;
+            while (r < rows) {
+                String line = readFile.nextLine();
+                for (int c = 0; c < cols; c++) {
+                    cell[r][c] = line.charAt(c);
+                }
+                r++;
             }
-            r++;
+        }
+        catch(IOException | InputMismatchException e){
+                System.out.println("Caught Exception" + e.getMessage());
+                System.exit(0);
         }
 
     }

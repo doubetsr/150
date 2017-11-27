@@ -14,6 +14,10 @@ public abstract class Robot {
     lost.setCell(rowLocation, colLocation,name);
     }
 
+    public void Robot (Maze inMaze){
+        Maze lost = inMaze;
+    }
+
     public char getName (){ return name; }
 
     public int getRowLocation () { return rowLocation; }
