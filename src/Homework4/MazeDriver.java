@@ -35,7 +35,7 @@ public class MazeDriver {
 	 * @param args
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		File inputFile = getFile();  //sample: testmaze.txt
 		Maze maze = new Maze(inputFile); //create maze from the file.
 		System.out.println(maze); //print the maze
