@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by Josh on 3/10/2017.
+ * Edited by Sam Doubet CSIT 150 11/24/2017.
  */
 public class Lab11 {
     public static void main(String[] args) {
@@ -144,8 +145,9 @@ public class Lab11 {
 
         System.out.println("\nJava 8 method - much more efficient and manageable");
         //Step 6. insert code here
-        System.out.println(employees.stream().filter(e -> e.getAccessCode() == 2));
-
+              employees.stream().filter(e -> e.getFirstName().contains("o")).collect(Collectors.toList())
+                .stream().filter(e -> e.getAccessCode() == 2).collect(Collectors.toList())
+                .stream().forEach(e -> System.out.println(e.toString()));
     }
 
 
