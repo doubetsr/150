@@ -3,32 +3,65 @@ package Homework4;
 import javax.swing.*;
 import java.awt.*;
 
-public class MazePanel extends JPanel{
+public class MazePanel extends JPanel {
 
     private Maze lostGui;
     private Robot robotGui;
     private int[][] rectArray = new int[20][20];
 
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
-        for (int dex = 0; dex < rectArray.length; dex++) {
-            g.setColor(Color.GREEN);
-            g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-            g.setColor(new Color(rectArray[dex][4],rectArray[dex][5],rectArray[dex][6]));//set color to red, green, blue
-            g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+
+        for (int i = 0; i < lostGui.getRows(); i++) {
+            for (int j = 0; j < lostGui.getCols(); j++) {
+                if (lostGui.getCell(i,j) == '*')
+                {
+                    g.setColor(Color.GREEN);
+                    g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
+                    g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
+                    g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                }
+
+                else if (Maze.getCell(i,j) == 'r')
+                {
+                    g.setColor(Color.GREEN);
+                    g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
+                    g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
+                    g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                }
+
+                else if (Maze.getCell(i,j) == ' ')
+                g.setColor(Color.GREEN);
+                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
+                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
+                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+
+                else if (Maze.getCell(i,j) == ' ')
+                    g.setColor(Color.GREEN);
+                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
+                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
+                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+
+                                else if (Maze.getCell(i,j) == ' ')
+                    g.setColor(Color.GREEN);
+                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
+                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
+                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+            }
         }
     }
 
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (robotGui != null) {
-            g.setColor(Color.red);
-            int row = robotGui.getX();
-            int col = robotGui.getY();
-            g.fillOval(row, col, robotGui.getBallWidth(), robotGui.getBallWidth());
-        }
-    }
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        if (robotGui != null) {
+//            g.setColor(Color.red);
+//            int row = robotGui.getX();
+//            int col = robotGui.getY();
+//            g.fillOval(row, col, robotGui.getBallWidth(), robotGui.getBallWidth());
+//        }
+//    }
 
 //    protected void paintComponent(Graphics g) {
 //        super.paintComponent(g);
