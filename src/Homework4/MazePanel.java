@@ -17,37 +17,32 @@ public class MazePanel extends JPanel {
             for (int j = 0; j < lostGui.getCols(); j++) {
                 if (lostGui.getCell(i,j) == '*')
                 {
-                    g.setColor(Color.GREEN);
-                    g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-                    g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
-                    g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                    g.setColor(Color.BLUE);
+                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
                 }
 
-                else if (Maze.getCell(i,j) == 'r')
+                else if (lostGui.getCell(i,j) == 'r')
                 {
-                    g.setColor(Color.GREEN);
-                    g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-                    g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
-                    g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                    g.setColor(Color.red);
+                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
+                    g.setColor(new Color(rectArray[i][j], rectArray[i][j], rectArray[i][j]));//set color to red, green, blue
+                    g.fillRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//draw oval
                 }
 
-                else if (Maze.getCell(i,j) == ' ')
-                g.setColor(Color.GREEN);
-                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
-                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                else if (lostGui.getCell(i,j) == ' ') {
+                    g.setColor(Color.GRAY);
+                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
+                }
 
-                else if (Maze.getCell(i,j) == ' ')
-                    g.setColor(Color.GREEN);
-                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
-                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                else if (lostGui.getCell(i,j) == 'S') {
+                    g.setColor(Color.white);
+                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
+                }
 
-                                else if (Maze.getCell(i,j) == ' ')
+                else if (lostGui.getCell(i,j) == 'X') {
                     g.setColor(Color.GREEN);
-                g.drawRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//outline
-                g.setColor(new Color(rectArray[dex][4], rectArray[dex][5], rectArray[dex][6]));//set color to red, green, blue
-                g.fillRect(rectArray[dex][0], rectArray[dex][1], rectArray[dex][2], rectArray[dex][3]);//draw oval
+                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
+                }
             }
         }
     }
