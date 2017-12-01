@@ -2,46 +2,47 @@ package Homework4;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 public class MazePanel extends JPanel {
 
     private Maze lostGui;
     private Robot robotGui;
-    private int[][] rectArray = new int[20][20];
+
+    public MazePanel() {
+
+        lostGui = null;
+        robotGui = null;
+    }
 
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
+        g.setColor(Color.BLUE);
+        g.drawString("hi", 70, 80);//outline
+        if (lostGui != null) {
+            for (int i = 0; i < lostGui.getRows(); i++) {
+                for (int j = 0; j < lostGui.getCols(); j++) {
+                    if (lostGui.getCell(i, j) == '*') {
+                        g.setColor(Color.BLUE);
+                        g.drawString("hi", 70, 80);//outline
+                    } else if (lostGui.getCell(i, j) == 'r') {
+                        g.setColor(Color.red);
+                        g.drawString("hi", 50, 50);//outline
 
-        for (int i = 0; i < lostGui.getRows(); i++) {
-            for (int j = 0; j < lostGui.getCols(); j++) {
-                if (lostGui.getCell(i,j) == '*')
-                {
-                    g.setColor(Color.BLUE);
-                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
-                }
+                    } else if (lostGui.getCell(i, j) == ' ') {
+                        g.setColor(Color.GRAY);
+                        g.drawString("hi", 100, 100);//outline
 
-                else if (lostGui.getCell(i,j) == 'r')
-                {
-                    g.setColor(Color.red);
-                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
-                    g.setColor(new Color(rectArray[i][j], rectArray[i][j], rectArray[i][j]));//set color to red, green, blue
-                    g.fillRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//draw oval
-                }
+                    } else if (lostGui.getCell(i, j) == 'S') {
+                        g.setColor(Color.white);
+                        g.drawString("hi", 130, 130);//outline
 
-                else if (lostGui.getCell(i,j) == ' ') {
-                    g.setColor(Color.GRAY);
-                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
-                }
+                    } else if (lostGui.getCell(i, j) == 'X') {
+                        g.setColor(Color.GREEN);
+                        g.drawString("hi", 160, 160);//outline
 
-                else if (lostGui.getCell(i,j) == 'S') {
-                    g.setColor(Color.white);
-                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
-                }
-
-                else if (lostGui.getCell(i,j) == 'X') {
-                    g.setColor(Color.GREEN);
-                    g.drawRect(rectArray[i][j], rectArray[i][j], rectArray[i][j], rectArray[i][j]);//outline
+                    }
                 }
             }
         }
@@ -117,11 +118,11 @@ public class MazePanel extends JPanel {
 
 
     public void setMaze (Maze inMaze){
-        Maze lostGui = inMaze;
+        lostGui = inMaze;
     }
 
     public void setRobot (Robot inRobot){
-        Robot robotGui = inRobot;
+        robotGui = inRobot;
     }
 
 
