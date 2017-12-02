@@ -13,24 +13,25 @@ public class MazeFrame extends JFrame {
     private Robot guiRobot;
     private MazePanel guiPanel;
     private Boolean bCheck;
-    JMenuItem fileOpenMenuItem;
-    JMenuItem fileSaveMenuItem;
-    JMenuItem robotMenuItem;
-    JMenuItem exitMenuItem;
+    JMenuItem fileSolveMenuItem;
+    JMenuItem fileExitMenuItem;
+    JMenuItem mazeLoadFileMenuItem;
+    JMenuItem robotLookAheadMenuItem;
+    JMenuItem robotRightMenuItem;
     JMenu fileMenu;
+    JMenu robotMenu;
+    JMenu mazeMenu;
     JMenuBar menuBar;
 
 
 public MazeFrame () {
     this.setTitle("Exercise Window");
-    this.setSize(500,500);
+    this.setSize(840,680);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     menuBar = new JMenuBar();
     setJMenuBar(menuBar);
     buildFileMenu();
-
     initializeWindow();
-
     this.setVisible(true);
 
     }
@@ -38,32 +39,44 @@ public MazeFrame () {
     private void buildFileMenu(){
         // Create
         fileMenu = new JMenu("File");
+        mazeMenu = new JMenu("Maze");
+        robotMenu = new JMenu("Robot");
 
         // Create the menu items
-        fileOpenMenuItem = new JMenuItem("Open a file");
-        fileSaveMenuItem = new JMenuItem("Save");
-        exitMenuItem = new JMenuItem("exit");
+        fileSolveMenuItem = new JMenuItem("Solve");
+        fileExitMenuItem = new JMenuItem("Exit");
+        mazeLoadFileMenuItem = new JMenuItem("Load Maze");
+        robotLookAheadMenuItem = new JMenuItem("Random");
+        robotRightMenuItem = new JMenuItem("RightHand");
 
         // Add these menu items into fileMenu
-        fileMenu.add(fileOpenMenuItem);
-        fileMenu.add(fileSaveMenuItem);
+        fileMenu.add(fileSolveMenuItem);
         fileMenu.addSeparator();
-        fileMenu.add(exitMenuItem);
+        fileMenu.add(fileExitMenuItem);
+
+        // Add these menu items into mazeMenu
+        mazeMenu.add(mazeLoadFileMenuItem);
+
+        // Add these menu items into robotMenu
+        robotMenu.add(robotRightMenuItem);
+        robotMenu.addSeparator();
+        robotMenu.add(robotLookAheadMenuItem);
 
         // Hook up the menu items with the listener
         MyListener listener = new MyListener();
-        exitMenuItem.addActionListener(listener);
-        fileOpenMenuItem.addActionListener(listener);
- //       fileSaveMenuItem.addActionListener(listener);
+        fileExitMenuItem.addActionListener(listener);
+        mazeLoadFileMenuItem.addActionListener(listener);
         menuBar.add(fileMenu);
-
+        menuBar.add(mazeMenu);
+        menuBar.add(robotMenu);
     }
+
 
     private class MyListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            if (e.getSource() == exitMenuItem)
+            if (e.getSource() == fileExitMenuItem)
                 System.exit(0);
-            else if(e.getSource() == fileOpenMenuItem){
+            else if(e.getSource() == mazeLoadFileMenuItem){
                 // Show a dialog to allow the user to choose files
                 JFileChooser fc = new JFileChooser("./");  //set starting point
                 int status = fc.showOpenDialog(null);
