@@ -23,7 +23,7 @@ public class MazeFrame extends JFrame {
 
 public MazeFrame () {
     this.setTitle("Exercise Window");
-    this.setSize(500,500 );
+    this.setSize(500,500);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     menuBar = new JMenuBar();
     setJMenuBar(menuBar);
@@ -38,8 +38,6 @@ public MazeFrame () {
     private void buildFileMenu(){
         // Create
         fileMenu = new JMenu("File");
-
-
 
         // Create the menu items
         fileOpenMenuItem = new JMenuItem("Open a file");

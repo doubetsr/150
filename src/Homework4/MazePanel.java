@@ -18,29 +18,30 @@ public class MazePanel extends JPanel {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.setColor(Color.BLUE);
-        g.drawString("hi", 70, 80);//outline
+
         if (lostGui != null) {
             for (int i = 0; i < lostGui.getRows(); i++) {
                 for (int j = 0; j < lostGui.getCols(); j++) {
                     if (lostGui.getCell(i, j) == '*') {
                         g.setColor(Color.BLUE);
-                        g.drawString("hi", 70, 80);//outline
+                        g.fillRect(j*40,i*40,40,40);
                     } else if (lostGui.getCell(i, j) == 'r') {
+                        g.setColor(Color.WHITE);
+                        g.fillRect(j*40,i*40,40,40);
                         g.setColor(Color.red);
-                        g.drawString("hi", 50, 50);//outline
+                        g.fillOval(j*40+10,i*40+10,20,20);
 
                     } else if (lostGui.getCell(i, j) == ' ') {
-                        g.setColor(Color.GRAY);
-                        g.drawString("hi", 100, 100);//outline
+                        g.setColor(Color.WHITE);
+                        g.fillRect(j*40,i*40,40,40);
 
                     } else if (lostGui.getCell(i, j) == 'S') {
-                        g.setColor(Color.white);
-                        g.drawString("hi", 130, 130);//outline
+                        g.setColor(Color.ORANGE);
+                        g.fillRect(j*40,i*40,40,40);
 
                     } else if (lostGui.getCell(i, j) == 'X') {
                         g.setColor(Color.GREEN);
-                        g.drawString("hi", 160, 160);//outline
+                        g.fillRect(j*40,i*40,40,40);
 
                     }
                 }
