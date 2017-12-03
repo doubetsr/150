@@ -67,6 +67,10 @@ public class MazeFrame extends JFrame {
         MyListener listener = new MyListener();
         fileExitMenuItem.addActionListener(listener);
         mazeLoadFileMenuItem.addActionListener(listener);
+        fileSolveMenuItem.addActionListener(listener);
+        robotLookAheadMenuItem.addActionListener(listener);
+        robotRightMenuItem.addActionListener(listener);
+
         menuBar.add(fileMenu);
         menuBar.add(mazeMenu);
         menuBar.add(robotMenu);
@@ -88,12 +92,15 @@ public class MazeFrame extends JFrame {
                     JOptionPane.showMessageDialog(null, filename);
                     guiMaze = new Maze(guiFile);
                     guiPanel.setMaze(guiMaze);
+                    repaint();
                 }
                 else if (e.getSource() == robotLookAheadMenuItem){
                     robotChar = 1;
+                    run();
                 }
                 else if (e.getSource() == robotRightMenuItem){
                     robotChar = 2;
+                    run();
                 }
                 else if (e.getSource() == fileSolveMenuItem){
                     run();
@@ -112,44 +119,46 @@ public class MazeFrame extends JFrame {
 
     public void run(){
 
-        bCheck = true;
+        System.out.println("See DOS run");
+        if (bCheck == true) {
 
-        try{
-            Thread.sleep(500);
-            do {
-                switch (robotChar) {
-                    case '1':
-                        guiRobot = new LookAheadRobot(guiMaze); //show the bot the maze
-                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                        //this limits the robot's moves, in case it takes too long to find the exit.
-                        {
-                            int direction = guiRobot.chooseMoveDirection();
-                            if (direction >= 0)  //invalid direction is -1
-                                guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiRobot.getRowLocation(),guiRobot.getColLocation(),20,20);
-                        }
-                        System.exit(0);
-                        break;
-                    case '2':
-                        JOptionPane.showMessageDialog(null,
-                                "You chose the Righthand Robot", "Righthand Robot", 1);
-                        guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
-                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                        //this limits the robot's moves, in case it takes too long to find the exit.
-                        {
-                            int direction = guiRobot.chooseMoveDirection();
-                            if (direction >= 0)  //invalid direction is -1
-                                guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiRobot.getRowLocation(),guiRobot.getColLocation(),20,20);
-                        }
-                        System.exit(0);
-                        break;
+            try {
+                Thread.sleep(500);
+                do {
+                    switch (robotChar) {
+                        case '1':
+                            guiRobot = new LookAheadRobot(guiMaze); //show the bot the maze
+                            guiPanel.paintImmediately(40,40,40,40);
+                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                            //this limits the robot's moves, in case it takes too long to find the exit.
+                            {
+                                int direction = guiRobot.chooseMoveDirection();
+                                if (direction >= 0)  //invalid direction is -1
+                                    guiRobot.move(direction);
+                                guiPanel.paintImmediately(20,20,guiRobot.getRowLocation(), guiRobot.getColLocation());
+                            }
+                            System.exit(0);
+                            break;
+                        case '2':
+                            System.out.println("hello");
+                            guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
+                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                            //this limits the robot's moves, in case it takes too long to find the exit.
+                            {
+                                int direction = guiRobot.chooseMoveDirection();
+                                if (direction >= 0)  //invalid direction is -1
+                                    guiRobot.move(direction);
+                                guiPanel.paintImmediately(20,20,guiRobot.getRowLocation(), guiRobot.getColLocation());
+                            }
+                            System.exit(0);
+                            break;
+                    }
+                    Thread.sleep(100);
                 }
-                Thread.sleep(100);
+                while (true);
+            } catch (Exception e) {
+                System.out.println("This shouldn't happen.");
             }
-            while (true);
-        } catch (Exception e) {
-            System.out.println("This shouldn't happen.");
         }
     }
 
