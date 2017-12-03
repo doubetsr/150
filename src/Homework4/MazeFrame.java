@@ -13,6 +13,7 @@ public class MazeFrame extends JFrame {
     private Robot guiRobot;
     private MazePanel guiPanel;
     private Boolean bCheck;
+    private char robotChar;
     JMenuItem fileSolveMenuItem;
     JMenuItem fileExitMenuItem;
     JMenuItem mazeLoadFileMenuItem;
@@ -24,15 +25,15 @@ public class MazeFrame extends JFrame {
     JMenuBar menuBar;
 
 
-public MazeFrame () {
-    this.setTitle("Exercise Window");
-    this.setSize(840,680);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    menuBar = new JMenuBar();
-    setJMenuBar(menuBar);
-    buildFileMenu();
-    initializeWindow();
-    this.setVisible(true);
+    public MazeFrame () {
+        this.setTitle("Exercise Window");
+        this.setSize(840,680);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        buildFileMenu();
+        initializeWindow();
+        this.setVisible(true);
 
     }
 
@@ -87,21 +88,17 @@ public MazeFrame () {
                     JOptionPane.showMessageDialog(null, filename);
                     guiMaze = new Maze(guiFile);
                     guiPanel.setMaze(guiMaze);
-                    repaint();
-
+                }
+                else if (e.getSource() == robotLookAheadMenuItem){
+                    robotChar = 1;
+                }
+                else if (e.getSource() == robotRightMenuItem){
+                    robotChar = 2;
+                }
+                else if (e.getSource() == fileSolveMenuItem){
+                    run();
                 }
             }
-//            else if(e.getSource() == fileSaveMenuItem){
-//                writeFile();  //save the file
-//            }
-//            else if(e.getSource() == colorMenuItem){
-//                // Show a dialog to allow the user to choose a color
-//                Color selected = JColorChooser.showDialog(null, "choose a color", Color.BLACK);
-//                if (selected != null){
-//                    // Set the background of the window
-//                    colorPanel.setBackground(selected);
-//                }
-//            }
         }
     }
 
@@ -113,8 +110,63 @@ public MazeFrame () {
         this.add(guiPanel, BorderLayout.CENTER);
     }
 
+    public void run(){
+
+        bCheck = true;
+
+        try{
+            Thread.sleep(500);
+            do {
+                switch (robotChar) {
+                    case '1':
+                        guiRobot = new LookAheadRobot(guiMaze); //show the bot the maze
+                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                        //this limits the robot's moves, in case it takes too long to find the exit.
+                        {
+                            int direction = guiRobot.chooseMoveDirection();
+                            if (direction >= 0)  //invalid direction is -1
+                                guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiRobot.getRowLocation(),guiRobot.getColLocation(),20,20);
+                        }
+                        System.exit(0);
+                        break;
+                    case '2':
+                        JOptionPane.showMessageDialog(null,
+                                "You chose the Righthand Robot", "Righthand Robot", 1);
+                        guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
+                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                        //this limits the robot's moves, in case it takes too long to find the exit.
+                        {
+                            int direction = guiRobot.chooseMoveDirection();
+                            if (direction >= 0)  //invalid direction is -1
+                                guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiRobot.getRowLocation(),guiRobot.getColLocation(),20,20);
+                        }
+                        System.exit(0);
+                        break;
+                }
+                Thread.sleep(100);
+            }
+            while (true);
+        } catch (Exception e) {
+            System.out.println("This shouldn't happen.");
+        }
+    }
+
+    public void resetMaze(){
+        repaint();
+    }
+
     public static void main(String[] args)
     {
         MazeFrame ew = new MazeFrame();
     }
 }
+
+
+//    If a robot has already finished the maze, display a JOptionPane telling the user to choose a new robot. Otherwise, this method starts the robot through the maze:
+//        1. Set your boolean variable to indicate the robot is moving.
+//        2. Call Thread.sleep(500) . This will delay the running of the program long enough so that you can see the display from its beginning. (The 500 is in milliseconds, so it's not long.) We need this because otherwise the robot moves too fast for the human eye. Remember to handle expectations appropriately.
+//        3. Copy the for loop from HW3 MazeDriver project's main() method – with changes:
+//         After the robot moves, instead of printing, you will need to redraw the visual. Use a special method in JPanel called paintImmediately() paintImmediately() . Go to the documentation and read about paintImmediately – you will be calling it with your MazePanel object that is placed in the frame, and you'll need to give it the dimensions associated with your MazePanel object when you call it.
+//         End your loop body with another call to Thread.sleep(100) . It will give you time to see the route your robot takes along the way to the exit location.
