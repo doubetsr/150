@@ -19,6 +19,7 @@ public class MazePanel extends JPanel {
 
         super.paintComponent(g);
 
+        //System.out.println("paint component running!");
         if (lostGui != null) {
             for (int i = 0; i < lostGui.getRows(); i++) {
                 for (int j = 0; j < lostGui.getCols(); j++) {
@@ -26,14 +27,15 @@ public class MazePanel extends JPanel {
                         g.setColor(Color.BLUE);
                         g.fillRect(j*40,i*40,40,40);
                     } else if (lostGui.getCell(i, j) == 'r') {
-                        g.setColor(Color.WHITE);
-                        g.fillRect(j*40,i*40,40,40);
+//                        g.setColor(Color.WHITE);
+//                        g.fillRect(j*40,i*40,40,40);
                         g.setColor(Color.red);
                         g.fillOval(j*40+10,i*40+10,20,20);
 
                     } else if (lostGui.getCell(i, j) == ' ') {
                         g.setColor(Color.WHITE);
                         g.fillRect(j*40,i*40,40,40);
+
 
                     } else if (lostGui.getCell(i, j) == 'S') {
                         g.setColor(Color.ORANGE);
