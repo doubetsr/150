@@ -27,7 +27,7 @@ public class MazeFrame extends JFrame {
 
     public MazeFrame () {
         this.setTitle("Exercise Window");
-        this.setSize(840,680);
+        this.setSize(300,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -71,6 +71,10 @@ public class MazeFrame extends JFrame {
         robotLookAheadMenuItem.addActionListener(listener);
         robotRightMenuItem.addActionListener(listener);
 
+        //set values false
+        fileSolveMenuItem.setEnabled(false);
+        robotMenu.setEnabled(false);
+
         menuBar.add(fileMenu);
         menuBar.add(mazeMenu);
         menuBar.add(robotMenu);
@@ -90,21 +94,23 @@ public class MazeFrame extends JFrame {
                 if(status == JFileChooser.APPROVE_OPTION){
                     // Show the file that the user has selected
                     guiFile = fc.getSelectedFile();
-                    String filename = guiFile.getPath();
-                    JOptionPane.showMessageDialog(null, filename);
                     guiMaze = new Maze(guiFile);
                     guiPanel.setMaze(guiMaze);
+                    setSize(guiMaze.getCols()*40 + 20,guiMaze.getRows()*40 + 70);
                     repaint();
                 }
+                robotMenu.setEnabled(true);
             }
             else if (e.getSource() == robotLookAheadMenuItem){
                 robotChar = '1';
+                fileSolveMenuItem.setEnabled(true);
                 System.out.println("Robot Char set to " + robotChar);
 
             }
             else if (e.getSource() == robotRightMenuItem){
                 //System.out.println("Matt in the house.");
                 robotChar = '2';
+                fileSolveMenuItem.setEnabled(true);
                 System.out.println("Robot Char set to " + robotChar);
 
             }
@@ -125,7 +131,7 @@ public class MazeFrame extends JFrame {
 
     public void run(){
         int curRow, curCol;
-        System.out.println("run() is running. robot char = " + robotChar);
+        //System.out.println("run() is running. robot char = " + robotChar);
          bCheck = true;
 
             try {
@@ -141,14 +147,14 @@ public class MazeFrame extends JFrame {
                                 int direction = guiRobot.chooseMoveDirection();
                                 if (direction >= 0) { //invalid direction is -1
                                     guiRobot.move(direction);
-                                    //guiPanel.paintImmediately(guiRobot.getColLocation() * 40, guiRobot.getRowLocation() * 40, 20, 20);
-                                    guiPanel.paintComponent(getGraphics());
+                                    guiPanel.paintImmediately(guiPanel.getBounds());
+                                    //guiPanel.paintComponent(getGraphics());
                                     // guiRobot.wait(500);
                                     repaint();
                                     Thread.sleep(120);
                                 }
                             }
-                            System.exit(0);
+                            bCheck = false;
                             break;
                         case '2':
 
@@ -162,22 +168,24 @@ public class MazeFrame extends JFrame {
                                 if (direction >= 0) {  //invalid direction is -1
                                     curRow = guiRobot.getRowLocation() * 40;
                                     curCol = guiRobot.getColLocation() * 40;
-                                    System.out.println(guiRobot.getName() + " row " + curRow + "column "+ curCol);
+                                    //System.out.println(guiRobot.getName() + " row " + curRow + "column "+ curCol);
                                     guiRobot.move(direction);
-                                    //guiPanel.paintImmediately(curCol, curRow, 40, 40);
+                                    guiPanel.paintImmediately(guiPanel.getBounds());
                                     //System.out.println(guiRobot.getRowLocation() + " " + guiRobot.getColLocation());
-                                    guiPanel.paintComponent(getGraphics());
+                                    //guiPanel.paintComponent(getGraphics());
                                     Thread.sleep(100);
 
 
                                 }
+
                             }
-                            System.exit(0);
+                            bCheck = false;
                             break;
                     }
                     Thread.sleep(500);
                 }
-                while (true);
+                while (bCheck);
+                resetMaze();
             } catch (Exception e) {
                 System.out.println("This shouldn't happen.");
             }
@@ -185,6 +193,11 @@ public class MazeFrame extends JFrame {
 
 
     public void resetMaze(){
+
+        guiMaze = null;
+        guiRobot = null;
+        fileSolveMenuItem.setEnabled(false);
+        robotMenu.setEnabled(false);
         repaint();
     }
 
