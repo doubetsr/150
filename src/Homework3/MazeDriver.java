@@ -69,7 +69,8 @@ public class MazeDriver {
 					}
 					System.exit(0);
 					break;
-				case '2':
+
+				case '3':
 					JOptionPane.showMessageDialog(null,
 							"You chose the Righthand Robot", "Righthand Robot", 1);
 					Robot botRight = new RightHandRobot(maze); //show the bot the maze.
