@@ -19,7 +19,6 @@ import java.io.File;
  * @author doubetsr
  * @assisted Matt (brother) helped me find squiggly errors and fix my paintimmediately method.
  * @assisted Andrew, gave me the idea to use an if then statement
- *
  */
 
 public class MazeFrame extends JFrame {
