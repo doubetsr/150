@@ -14,7 +14,8 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
 
     Timer t = new Timer(5, this);
     double x = 0, y = 0, velX = 0, velY = 0;
-    private ImageIcon image;
+    Maze lostGui;
+    Robot robotGui;
 
 
     public UserPanel(){
@@ -23,8 +24,8 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
         addKeyListener(this);
         this.setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        image = new ImageIcon ("ship.gif");
-
+        lostGui = null;
+        robotGui = null;
     }
 
     public void paintComponent(Graphics g){
@@ -121,6 +122,22 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
         if (code == KeyEvent.VK_RIGHT){
             velX = 0;
         }
+    }
+
+    /**
+     * Create a setMaze method to setup the maze object.
+     * @param inMaze
+     */
+    public void setMaze (Maze inMaze){
+        lostGui = inMaze;
+    }
+
+    /**
+     * Create a setRobot method to setup the robot object.
+     * @param inRobot
+     */
+    public static void setRobot(Robot inRobot){
+        robotGui = inRobot;
     }
 
 }

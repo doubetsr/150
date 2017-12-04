@@ -93,5 +93,4 @@ public class MazePanel extends JPanel {
         robotGui = inRobot;
     }
 
-
 }

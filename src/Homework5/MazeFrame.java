@@ -217,7 +217,7 @@ public class MazeFrame extends JFrame {
                         case '3':
 
                             guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
-                            guiPanel.setRobot(guiRobot);
+                            UserPanel.setRobot(guiRobot);
                             for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
                             //this limits the robot's moves, in case it takes too long to find the exit.
                             {
