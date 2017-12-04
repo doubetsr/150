@@ -30,8 +30,6 @@ public abstract class Robot {
 
     public void setColLocation (int colLoc) { colLocation = colLoc; }
 
-
-
     public abstract int chooseMoveDirection();
 
 
