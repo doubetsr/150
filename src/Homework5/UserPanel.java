@@ -1,9 +1,6 @@
 package Homework5;
-
-
-
-
 import java.awt.Graphics;
+
 import java.awt.event.*;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -17,8 +14,7 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
 
     Timer t = new Timer(5, this);
     double x = 0, y = 0, velX = 0, velY = 0;
-    Maze lostGui;
-    Robot robotGui;
+    private ImageIcon image;
 
 
     public UserPanel(){
@@ -27,16 +23,15 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
         addKeyListener(this);
         this.setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        lostGui = null;
-        robotGui = null;
+        image = new ImageIcon ("ship.gif");
+
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(Color.WHITE);
-        g.fillRect(40,40,40,40);
-        g.setColor(Color.red);
-        g.fillOval(40+10,40+10,20,20);
+        ImageIcon i = new ImageIcon("C:\\Users\\Bryan\\Pictures\\ship.gif");
+        i.paintIcon(this, g, 0, 0);
+
     }
 
     public void actionPerformed(ActionEvent e){
@@ -125,22 +120,6 @@ public class UserPanel extends JPanel implements ActionListener, KeyListener {
         if (code == KeyEvent.VK_RIGHT){
             velX = 0;
         }
-    }
-
-    /**
-     * Create a setMaze method to setup the maze object.
-     * @param inMaze
-     */
-    public void setMaze (Maze inMaze){
-        lostGui = inMaze;
-    }
-
-    /**
-     * Create a setRobot method to setup the robot object.
-     * @param inRobot
-     */
-    public static void setRobot(Robot inRobot){
-        robotGui = inRobot;
     }
 
 }

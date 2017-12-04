@@ -1,4 +1,10 @@
-package Homework5;
+package Homework4;
+
+import Homework5.LookAheadRobot;
+import Homework5.Maze;
+import Homework5.RightHandRobot;
+import Homework5.Robot;
+import Homework5.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +40,6 @@ public class MazeFrame extends JFrame {
     JMenuItem mazeLoadFileMenuItem;
     JMenuItem robotLookAheadMenuItem;
     JMenuItem robotRightMenuItem;
-    JMenuItem robotUserMenuItem;
     JMenu fileMenu;
     JMenu robotMenu;
     JMenu mazeMenu;
@@ -71,7 +76,6 @@ public class MazeFrame extends JFrame {
         mazeLoadFileMenuItem = new JMenuItem("Load Maze");
         robotLookAheadMenuItem = new JMenuItem("LookAhead");
         robotRightMenuItem = new JMenuItem("RightHand");
-        robotUserMenuItem = new JMenuItem("User Controlled");
 
         // Add these menu items into fileMenu
         fileMenu.add(fileSolveMenuItem);
@@ -86,7 +90,6 @@ public class MazeFrame extends JFrame {
         robotMenu.addSeparator();
         robotMenu.add(robotLookAheadMenuItem);
         robotMenu.addSeparator();
-        robotMenu.add(robotUserMenuItem);
 
         // Hook up the menu items with the listener
         MyListener listener = new MyListener();
@@ -95,7 +98,6 @@ public class MazeFrame extends JFrame {
         fileSolveMenuItem.addActionListener(listener);
         robotLookAheadMenuItem.addActionListener(listener);
         robotRightMenuItem.addActionListener(listener);
-        robotUserMenuItem.addActionListener(listener);
 
         //set values false
         fileSolveMenuItem.setEnabled(false);
@@ -128,7 +130,7 @@ public class MazeFrame extends JFrame {
                     guiFile = fc.getSelectedFile();
                     guiMaze = new Maze(guiFile);
                     guiPanel.setMaze(guiMaze);
-                    setSize(guiMaze.getCols()*40,guiMaze.getRows()*40 + 50);
+                    setSize(guiMaze.getCols()*40 + 16,guiMaze.getRows()*40 + 60);
                     repaint();
                 }
                 robotMenu.setEnabled(true);
@@ -150,14 +152,6 @@ public class MazeFrame extends JFrame {
             else if (e.getSource() == fileSolveMenuItem){
                 run();
             }
-
-            //listener to initiate the usercontrolled robot.
-            else if (e.getSource() == robotUserMenuItem){
-                //System.out.println("Matt in the house.");
-                robotChar = '3';
-                fileSolveMenuItem.setEnabled(true);
-                System.out.println("Robot Char set to " + robotChar);
-            }
         }
     }
 
@@ -178,7 +172,7 @@ public class MazeFrame extends JFrame {
     public void run(){
          bCheck = true;
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
                 do {
                     switch (robotChar) {
                         case '1':
@@ -192,29 +186,13 @@ public class MazeFrame extends JFrame {
                                     guiRobot.move(direction);
                                     guiPanel.paintImmediately(guiPanel.getBounds());
                                     repaint();
-                                    Thread.sleep(120);
+                                    Thread.sleep(500);
                                 }
                             }
                             bCheck = false;
                             break;
-
                         case '2':
-                            guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
-                            guiPanel.setRobot(guiRobot);
-                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                            //this limits the robot's moves, in case it takes too long to find the exit.
-                            {
-                                int direction = guiRobot.chooseMoveDirection();
-                                if (direction >= 0) {  //invalid direction is -1
-                                    guiRobot.move(direction);
-                                    guiPanel.paintImmediately(guiPanel.getBounds());
-                                    Thread.sleep(100);
-                                }
-                            }
-                            bCheck = false;
-                            break;
 
-                        case '3':
                             guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
                             guiPanel.setRobot(guiRobot);
                             for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
@@ -224,7 +202,7 @@ public class MazeFrame extends JFrame {
                                 if (direction >= 0) {  //invalid direction is -1
                                     guiRobot.move(direction);
                                     guiPanel.paintImmediately(guiPanel.getBounds());
-                                    Thread.sleep(100);
+                                    Thread.sleep(500);
                                 }
                             }
                             bCheck = false;

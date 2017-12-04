@@ -1,8 +1,10 @@
-package Homework5;
+package Homework4;
+
+import Homework5.Maze;
+import Homework5.Robot;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * MazePanel will handle the paintComponent that prints out the
@@ -15,7 +17,6 @@ public class MazePanel extends JPanel {
     //Create a Maze and Robot object.
     private Maze lostGui;
     private Robot robotGui;
-    double x = 0, y = 0, velX = 0, velY = 0;
 
     //Lay out the Default Constructor and assign values to null.
     //Values will be loaded in the MazeFrame.
@@ -65,8 +66,8 @@ public class MazePanel extends JPanel {
 
                     //set the Start to another unused color
                     else if (lostGui.getCell(i, j) == 'S') {
-                        g.setColor(Color.RED);
-                        g.fillOval(40+10,40+10,20,20);
+                        g.setColor(Color.ORANGE);
+                        g.fillRect(j*40,i*40,40,40);
                     }
 
                     //set the Exit to another unused color
@@ -77,9 +78,6 @@ public class MazePanel extends JPanel {
                 }
             }
         }
-
-
-
     }
 
     /**
@@ -96,69 +94,6 @@ public class MazePanel extends JPanel {
      */
     public void setRobot (Robot inRobot){
         robotGui = inRobot;
-    }
-
-    //implement HWK5 changes to add user control KeyEvent listeners.
-
-    public void up(){
-        velY -= 40;
-        print(getGraphics());
-    }
-
-    public void down(){
-        velY += 40;
-        print(getGraphics());
-    }
-
-    public void left(){
-        velX -= 40;
-        print(getGraphics());
-    }
-
-    public void right(){
-        velX += 40;
-        print(getGraphics());
-    }
-
-    public void keyPressed(KeyEvent e){
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_UP){
-            up();
-        }
-
-        if (code == KeyEvent.VK_DOWN){
-            down();
-        }
-
-        if (code == KeyEvent.VK_LEFT){
-            left();
-        }
-
-        if (code == KeyEvent.VK_RIGHT){
-            right();
-        }
-    }
-    public void keyTyped(KeyEvent e){}
-
-    public void keyReleased(KeyEvent e){
-
-//      velX = 0;
-//      velY = 0;
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_UP){
-            velY = 0;
-        }
-        if (code == KeyEvent.VK_DOWN){
-            velY = 0;
-        }
-        if (code == KeyEvent.VK_LEFT){
-            velX = 0;
-        }
-        if (code == KeyEvent.VK_RIGHT){
-            velX = 0;
-        }
     }
 
 }
