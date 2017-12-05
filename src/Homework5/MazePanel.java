@@ -97,64 +97,7 @@ public class MazePanel extends JPanel {
 
     //implement HWK5 changes to add user control KeyEvent listeners.
 
-    public void up(){
-        userY -= 40;
-        print(getGraphics());
-    }
 
-    public void down(){
-        userY += 40;
-        print(getGraphics());
-    }
-
-    public void left(){
-        userX -= 40;
-        print(getGraphics());
-    }
-
-    public void right(){
-        userX += 40;
-        print(getGraphics());
-    }
-
-    public void keyPressed(KeyEvent e){
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_UP){
-            up();
-        }
-
-        if (code == KeyEvent.VK_DOWN){
-            down();
-        }
-
-        if (code == KeyEvent.VK_LEFT){
-            left();
-        }
-
-        if (code == KeyEvent.VK_RIGHT){
-            right();
-        }
-    }
-    public void keyTyped(KeyEvent e){}
-
-    public void keyReleased(KeyEvent e){
-
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_UP){
-            userY = 0;
-        }
-        if (code == KeyEvent.VK_DOWN){
-            userY = 0;
-        }
-        if (code == KeyEvent.VK_LEFT){
-            userX = 0;
-        }
-        if (code == KeyEvent.VK_RIGHT){
-            userX = 0;
-        }
-    }
 
     public double getUserX() {
         return userX;
