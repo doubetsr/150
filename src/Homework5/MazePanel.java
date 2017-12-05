@@ -15,7 +15,7 @@ public class MazePanel extends JPanel {
     //Create a Maze and Robot object.
     private Maze lostGui;
     private Robot robotGui;
-    double x = 0, y = 0, velX = 0, velY = 0;
+    double userX = 0, userY = 0;
 
     //Lay out the Default Constructor and assign values to null.
     //Values will be loaded in the MazeFrame.
@@ -77,9 +77,6 @@ public class MazePanel extends JPanel {
                 }
             }
         }
-
-
-
     }
 
     /**
@@ -101,22 +98,22 @@ public class MazePanel extends JPanel {
     //implement HWK5 changes to add user control KeyEvent listeners.
 
     public void up(){
-        velY -= 40;
+        userY -= 40;
         print(getGraphics());
     }
 
     public void down(){
-        velY += 40;
+        userY += 40;
         print(getGraphics());
     }
 
     public void left(){
-        velX -= 40;
+        userX -= 40;
         print(getGraphics());
     }
 
     public void right(){
-        velX += 40;
+        userX += 40;
         print(getGraphics());
     }
 
@@ -143,22 +140,35 @@ public class MazePanel extends JPanel {
 
     public void keyReleased(KeyEvent e){
 
-//      velX = 0;
-//      velY = 0;
         int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_UP){
-            velY = 0;
+            userY = 0;
         }
         if (code == KeyEvent.VK_DOWN){
-            velY = 0;
+            userY = 0;
         }
         if (code == KeyEvent.VK_LEFT){
-            velX = 0;
+            userX = 0;
         }
         if (code == KeyEvent.VK_RIGHT){
-            velX = 0;
+            userX = 0;
         }
     }
 
+    public double getUserX() {
+        return userX;
+    }
+
+    public double getUserY() {
+        return userY;
+    }
+
+    public void setUserX(double userX) {
+        this.userX = userX;
+    }
+
+    public void setUserY(double userY) {
+        this.userY = userY;
+    }
 }
