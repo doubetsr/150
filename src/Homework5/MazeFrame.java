@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
 /**
@@ -29,6 +31,7 @@ public class MazeFrame extends JFrame {
     private MazePanel guiPanel; //Creates a Panel
     private Boolean bCheck;
     private char robotChar;
+    private int direction;
     JMenuItem fileSolveMenuItem;
     JMenuItem fileExitMenuItem;
     JMenuItem mazeLoadFileMenuItem;
@@ -111,7 +114,7 @@ public class MazeFrame extends JFrame {
      * the user when they select different items in the menu.
      */
     private class MyListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
             //listener to Exit
             if (e.getSource() == fileExitMenuItem) {
@@ -119,44 +122,107 @@ public class MazeFrame extends JFrame {
             }
 
             //listener to load the maze.
-            else if(e.getSource() == mazeLoadFileMenuItem){
+            else if (e.getSource() == mazeLoadFileMenuItem) {
                 // Show a dialog to allow the user to choose files
                 JFileChooser fc = new JFileChooser("./");  //set starting point
                 int status = fc.showOpenDialog(null);
-                if(status == JFileChooser.APPROVE_OPTION){
+                if (status == JFileChooser.APPROVE_OPTION) {
                     // Show the file that the user has selected
                     guiFile = fc.getSelectedFile();
                     guiMaze = new Maze(guiFile);
                     guiPanel.setMaze(guiMaze);
-                    setSize(guiMaze.getCols()*40,guiMaze.getRows()*40 + 50);
+                    setSize(guiMaze.getCols() * 40, guiMaze.getRows() * 40 + 50);
                     repaint();
                 }
                 robotMenu.setEnabled(true);
             }
 
             //listener to load the lookahead robot.
-            else if (e.getSource() == robotLookAheadMenuItem){
+            else if (e.getSource() == robotLookAheadMenuItem) {
                 robotChar = '1';
                 fileSolveMenuItem.setEnabled(true);
             }
 
             //listener to load the righthad robot.
-            else if (e.getSource() == robotRightMenuItem){
+            else if (e.getSource() == robotRightMenuItem) {
                 robotChar = '2';
                 fileSolveMenuItem.setEnabled(true);
             }
 
             //listener to initiate the robot to solve the maze.
-            else if (e.getSource() == fileSolveMenuItem){
+            else if (e.getSource() == fileSolveMenuItem) {
                 run();
             }
 
             //listener to initiate the usercontrolled robot.
-            else if (e.getSource() == robotUserMenuItem){
-                //System.out.println("Matt in the house.");
-                robotChar = '3';
-                fileSolveMenuItem.setEnabled(true);
-                System.out.println("Robot Char set to " + robotChar);
+            else if (e.getSource() == robotUserMenuItem) {
+
+                class UserPanel implements KeyListener {
+
+
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        int code = e.getKeyCode();
+                        if (code == KeyEvent.VK_UP) {
+                            direction = 1;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                            System.out.println("Move UP");
+                        }
+                        if (code == KeyEvent.VK_DOWN) {
+                            direction = 2;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                            System.out.println("Move Down");
+                        }
+                        if (code == KeyEvent.VK_LEFT) {
+                            direction = 3;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                            System.out.println("Move Left");
+                        }
+                        if (code == KeyEvent.VK_RIGHT) {
+                            direction = 4;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                            System.out.println("Move Right");
+                        }
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                        int code = e.getKeyCode();
+
+                        guiRobot = new UserRobot(guiMaze);
+
+                        if (code == KeyEvent.VK_UP) {
+                            direction = 1;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                        }
+                        if (code == KeyEvent.VK_DOWN) {
+                            direction = 2;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                        }
+                        if (code == KeyEvent.VK_LEFT) {
+                            direction = 3;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                        }
+                        if (code == KeyEvent.VK_RIGHT) {
+                            direction = 4;
+                            guiRobot.move(direction);
+                            guiPanel.paintImmediately(guiPanel.getBounds());
+                        }
+                    }
+                }
             }
         }
     }

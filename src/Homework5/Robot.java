@@ -1,11 +1,14 @@
 package Homework5;
 
+import java.awt.event.KeyEvent;
+
 public abstract class Robot {
 
     protected Maze lost;
     protected char name = 'r';
     protected int rowLocation;
     protected int colLocation;
+    protected int direction;
 
     public Robot (Maze maze){ lost = maze;
 
@@ -29,6 +32,7 @@ public abstract class Robot {
     public void setRowLocation (int rowLoc) { rowLocation = rowLoc; }
 
     public void setColLocation (int colLoc) { colLocation = colLoc; }
+
 
 
 
