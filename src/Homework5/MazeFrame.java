@@ -170,6 +170,7 @@ public class MazeFrame extends JFrame {
             //listener to initiate the usercontrolled robot.
             else if (e.getSource() == robotUserMenuItem) {
                 guiRobot = new RightHandRobot(guiMaze);
+                guiPanel.setRobot(guiRobot);
                 fileSolveMenuItem.setEnabled(true);
             }
         }
