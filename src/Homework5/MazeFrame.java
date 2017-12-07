@@ -113,7 +113,7 @@ public class MazeFrame extends JFrame {
      * Create an action listener method to communicate with
      * the user when they select different items in the menu.
      */
-    private class MyListener implements ActionListener, KeyListener {
+    private class MyListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
             //listener to Exit
@@ -155,7 +155,6 @@ public class MazeFrame extends JFrame {
                     run();
                 }
                 else {
-
                     for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
                     //this limits the robot's moves, in case it takes too long to find the exit.
                     {
@@ -170,81 +169,12 @@ public class MazeFrame extends JFrame {
 
             //listener to initiate the usercontrolled robot.
             else if (e.getSource() == robotUserMenuItem) {
-                addKeyListener (this);
+                guiRobot = new RightHandRobot(guiMaze);
                 fileSolveMenuItem.setEnabled(true);
             }
         }
 
-        public void up(){
-            direction = 1;
-            guiRobot.move(direction);
-            guiPanel.paintImmediately(guiPanel.getBounds());
-            System.out.println("Move UP");
-        }
 
-        public void right(){
-            direction = 2;
-            guiRobot.move(direction);
-            guiPanel.paintImmediately(guiPanel.getBounds());
-            System.out.println("Move Left");
-        }
-
-        public void down(){
-            direction = 3;
-            guiRobot.move(direction);
-            guiPanel.paintImmediately(guiPanel.getBounds());
-            System.out.println("Move Down");
-        }
-
-        public void left(){
-            direction = 4;
-            guiRobot.move(direction);
-            guiPanel.paintImmediately(guiPanel.getBounds());
-            System.out.println("Move Right");
-        }
-        @Override
-        public void keyTyped(KeyEvent e) {
-            int code = e.getKeyCode();
-            if (code == KeyEvent.VK_UP) {
-                up();
-            }
-
-            if (code == KeyEvent.VK_DOWN) {
-                down();
-            }
-
-            if (code == KeyEvent.VK_LEFT) {
-                left();
-            }
-            if (code == KeyEvent.VK_RIGHT) {
-                right();
-            }
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-            int code = e.getKeyCode();
-            if (code == KeyEvent.VK_UP) {
-                up();
-            }
-
-            if (code == KeyEvent.VK_DOWN) {
-                down();
-            }
-
-            if (code == KeyEvent.VK_LEFT) {
-                left();
-            }
-            if (code == KeyEvent.VK_RIGHT) {
-                right();
-            }
-        }
     }
 
     /**

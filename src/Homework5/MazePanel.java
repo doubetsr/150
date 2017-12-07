@@ -2,7 +2,9 @@ package Homework5;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * MazePanel will handle the paintComponent that prints out the
@@ -10,18 +12,22 @@ import java.awt.event.KeyEvent;
  * CSIT 150 Homework 4
  *
  */
-public class MazePanel extends JPanel {
+public class MazePanel extends JPanel implements KeyListener {
 
     //Create a Maze and Robot object.
     private Maze lostGui;
     private Robot robotGui;
     double userX = 0, userY = 0;
+    private int direction;
 
     //Lay out the Default Constructor and assign values to null.
     //Values will be loaded in the MazeFrame.
     public MazePanel() {
         lostGui = null;
         robotGui = null;
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.setFocusTraversalKeysEnabled(false);
     }
 
     /**
@@ -77,6 +83,68 @@ public class MazePanel extends JPanel {
                 }
             }
         }
+    }
+
+    public void actionPerformed(ActionEvent ae)
+    {
+        repaint();
+        robotGui.move(direction);
+    }
+
+    public void up(){
+        direction = 1;
+        robotGui.move(direction);
+        repaint();
+        System.out.println("Move UP");
+    }
+
+    public void right(){
+        direction = 2;
+        robotGui.move(direction);
+        repaint();
+        System.out.println("Move Left");
+    }
+
+    public void down(){
+        direction = 3;
+        robotGui.move(direction);
+        repaint();
+        System.out.println("Move Down");
+    }
+
+    public void left(){
+        direction = 4;
+        robotGui.move(direction);
+        repaint();
+        System.out.println("Move Right");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+        if (code == KeyEvent.VK_UP) {
+            up();
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            down();
+        }
+
+        if (code == KeyEvent.VK_LEFT) {
+            left();
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            right();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
     /**
