@@ -26,7 +26,6 @@ public class MazePanel extends JPanel implements KeyListener {
     public MazePanel() {
         lostGui = null;
         robotGui = null;
-        dirtyRobot = null;
         this.addKeyListener(this);
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
@@ -98,12 +97,23 @@ public class MazePanel extends JPanel implements KeyListener {
         robotGui.move(direction);
     }
 
+    public void setDirtyRobot(){
+        dirtyRobot = new RandomRobot(lostGui);
+        dirtyRobot.setName('d');
+        dirtyRobot.setColLocation(lostGui.exitcol);
+        dirtyRobot.setRowLocation(lostGui.exitrow -3);
+    }
+
     public void up(){
         if (!robotGui.solved()){
             direction = 1;
             robotGui.move(direction);
-//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
+            direction = dirtyRobot.chooseMoveDirection();
+            dirtyRobot.move(direction);
+            paintImmediately(getBounds());
             repaint();
+            System.out.println("Col location:" + dirtyRobot.getColLocation() +
+                    "Row location" + dirtyRobot.getRowLocation());
         }
         //check to see if it hits enemy
         //check to see if it finished maze
@@ -113,8 +123,12 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
             direction = 2;
             robotGui.move(direction);
-//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
+            direction = dirtyRobot.chooseMoveDirection();
+            dirtyRobot.move(direction);
+            paintImmediately(getBounds());
             repaint();
+            System.out.println("Col location:" + dirtyRobot.getColLocation() +
+                    "Row location" + dirtyRobot.getRowLocation());
         }
     }
 
@@ -122,8 +136,12 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
         direction = 3;
             robotGui.move(direction);
-//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
+            direction = dirtyRobot.chooseMoveDirection();
+            dirtyRobot.move(direction);
+            paintImmediately(getBounds());
             repaint();
+            System.out.println("Col location:" + dirtyRobot.getColLocation() +
+                    "Row location" + dirtyRobot.getRowLocation());
         }
     }
 
@@ -131,8 +149,12 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
             direction = 4;
             robotGui.move(direction);
-//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
+            direction = dirtyRobot.chooseMoveDirection();
+            dirtyRobot.move(direction);
+            paintImmediately(getBounds());
             repaint();
+            System.out.println("Col location:" + dirtyRobot.getColLocation() +
+                    "Row location" + dirtyRobot.getRowLocation());
         }
     }
 

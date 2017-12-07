@@ -123,6 +123,8 @@ public class MazeFrame extends JFrame {
 
             //listener to load the maze.
             else if (e.getSource() == mazeLoadFileMenuItem) {
+
+                guiRobot = null;
                 // Show a dialog to allow the user to choose files
                 JFileChooser fc = new JFileChooser("./");  //set starting point
                 int status = fc.showOpenDialog(null);
@@ -154,15 +156,11 @@ public class MazeFrame extends JFrame {
                     run();
             }
 
-            //listener to initiate the usercontrolled robot.
+            //listener to initiate the user controlled robot.
             else if (e.getSource() == robotUserMenuItem) {
                 guiRobot = new RightHandRobot(guiMaze);
                 guiPanel.setRobot(guiRobot);
-//                dirtyRobot = new RightHandRobot(guiMaze);
-//                dirtyRobot.setName('d');
-//                dirtyRobot.setColLocation(10);
-//                dirtyRobot.setRowLocation(10);
-//                guiPanel.setRobot(dirtyRobot);
+                guiPanel.setDirtyRobot();
             }
         }
 
