@@ -95,28 +95,26 @@ public class MazePanel extends JPanel implements KeyListener {
         direction = 1;
         robotGui.move(direction);
         repaint();
-        System.out.println("Move UP");
+        //check to see if it hits enemy
+        //check to see if it finished maze
     }
 
     public void right(){
         direction = 2;
         robotGui.move(direction);
         repaint();
-        System.out.println("Move Left");
     }
 
     public void down(){
         direction = 3;
         robotGui.move(direction);
         repaint();
-        System.out.println("Move Down");
     }
 
     public void left(){
         direction = 4;
         robotGui.move(direction);
         repaint();
-        System.out.println("Move Right");
     }
 
     @Override

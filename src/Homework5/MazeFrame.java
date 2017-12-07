@@ -151,27 +151,13 @@ public class MazeFrame extends JFrame {
 
             //listener to initiate the robot to solve the maze.
             else if (e.getSource() == fileSolveMenuItem) {
-                if (direction != 3){
                     run();
-                }
-                else {
-                    for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                    //this limits the robot's moves, in case it takes too long to find the exit.
-                    {
-
-                        if (direction >= 0) {  //invalid direction is -1
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                        }
-                    }
-                }
             }
 
             //listener to initiate the usercontrolled robot.
             else if (e.getSource() == robotUserMenuItem) {
                 guiRobot = new RightHandRobot(guiMaze);
                 guiPanel.setRobot(guiRobot);
-                fileSolveMenuItem.setEnabled(true);
             }
         }
 

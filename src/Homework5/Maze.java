@@ -128,7 +128,7 @@ public class Maze {
      */
     public boolean openCell(int row, int col) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            if (cell[row][col] == '*')
+            if (cell[row][col] == '*' || cell[row][col] == '*')
                 return false;
             else if (row == startrow && col == startcol)
                 return false;
