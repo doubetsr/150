@@ -113,7 +113,7 @@ public class MazeFrame extends JFrame {
      * Create an action listener method to communicate with
      * the user when they select different items in the menu.
      */
-    private class MyListener implements ActionListener {
+    private class MyListener implements ActionListener, KeyListener {
         public void actionPerformed(ActionEvent e) {
 
             //listener to Exit
@@ -151,78 +151,98 @@ public class MazeFrame extends JFrame {
 
             //listener to initiate the robot to solve the maze.
             else if (e.getSource() == fileSolveMenuItem) {
-                run();
-            }
+                if (direction != 3){
+                    run();
+                }
+                else {
 
-            //listener to initiate the usercontrolled robot.
-            else if (e.getSource() == robotUserMenuItem) {
+                    for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                    //this limits the robot's moves, in case it takes too long to find the exit.
+                    {
 
-                class UserPanel implements KeyListener {
-
-
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        int code = e.getKeyCode();
-                        if (code == KeyEvent.VK_UP) {
-                            direction = 1;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                            System.out.println("Move UP");
-                        }
-                        if (code == KeyEvent.VK_DOWN) {
-                            direction = 2;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                            System.out.println("Move Down");
-                        }
-                        if (code == KeyEvent.VK_LEFT) {
-                            direction = 3;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                            System.out.println("Move Left");
-                        }
-                        if (code == KeyEvent.VK_RIGHT) {
-                            direction = 4;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                            System.out.println("Move Right");
-                        }
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                        int code = e.getKeyCode();
-
-                        guiRobot = new UserRobot(guiMaze);
-
-                        if (code == KeyEvent.VK_UP) {
-                            direction = 1;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                        }
-                        if (code == KeyEvent.VK_DOWN) {
-                            direction = 2;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                        }
-                        if (code == KeyEvent.VK_LEFT) {
-                            direction = 3;
-                            guiRobot.move(direction);
-                            guiPanel.paintImmediately(guiPanel.getBounds());
-                        }
-                        if (code == KeyEvent.VK_RIGHT) {
-                            direction = 4;
+                        if (direction >= 0) {  //invalid direction is -1
                             guiRobot.move(direction);
                             guiPanel.paintImmediately(guiPanel.getBounds());
                         }
                     }
                 }
+            }
+
+            //listener to initiate the usercontrolled robot.
+            else if (e.getSource() == robotUserMenuItem) {
+                addKeyListener (this);
+                fileSolveMenuItem.setEnabled(true);
+            }
+        }
+
+        public void up(){
+            direction = 1;
+            guiRobot.move(direction);
+            guiPanel.paintImmediately(guiPanel.getBounds());
+            System.out.println("Move UP");
+        }
+
+        public void right(){
+            direction = 2;
+            guiRobot.move(direction);
+            guiPanel.paintImmediately(guiPanel.getBounds());
+            System.out.println("Move Left");
+        }
+
+        public void down(){
+            direction = 3;
+            guiRobot.move(direction);
+            guiPanel.paintImmediately(guiPanel.getBounds());
+            System.out.println("Move Down");
+        }
+
+        public void left(){
+            direction = 4;
+            guiRobot.move(direction);
+            guiPanel.paintImmediately(guiPanel.getBounds());
+            System.out.println("Move Right");
+        }
+        @Override
+        public void keyTyped(KeyEvent e) {
+            int code = e.getKeyCode();
+            if (code == KeyEvent.VK_UP) {
+                up();
+            }
+
+            if (code == KeyEvent.VK_DOWN) {
+                down();
+            }
+
+            if (code == KeyEvent.VK_LEFT) {
+                left();
+            }
+            if (code == KeyEvent.VK_RIGHT) {
+                right();
+            }
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+            int code = e.getKeyCode();
+            if (code == KeyEvent.VK_UP) {
+                up();
+            }
+
+            if (code == KeyEvent.VK_DOWN) {
+                down();
+            }
+
+            if (code == KeyEvent.VK_LEFT) {
+                left();
+            }
+            if (code == KeyEvent.VK_RIGHT) {
+                right();
             }
         }
     }
@@ -242,68 +262,52 @@ public class MazeFrame extends JFrame {
      * Run method that will signal the Robot to execute the maze.
      */
     public void run(){
-         bCheck = true;
-            try {
-                Thread.sleep(100);
-                do {
-                    switch (robotChar) {
-                        case '1':
-                            guiRobot = new LookAheadRobot(guiMaze); //show the bot the maze
-                            guiPanel.setRobot(guiRobot);
-                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                            //this limits the robot's moves, in case it takes too long to find the exit.
-                            {
-                                int direction = guiRobot.chooseMoveDirection();
-                                if (direction >= 0) { //invalid direction is -1
-                                    guiRobot.move(direction);
-                                    guiPanel.paintImmediately(guiPanel.getBounds());
-                                    repaint();
-                                    Thread.sleep(120);
-                                }
+        bCheck = true;
+        try {
+            Thread.sleep(100);
+            do {
+                switch (robotChar) {
+                    case '1':
+                        guiRobot = new LookAheadRobot(guiMaze); //show the bot the maze
+                        guiPanel.setRobot(guiRobot);
+                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                        //this limits the robot's moves, in case it takes too long to find the exit.
+                        {
+                            int direction = guiRobot.chooseMoveDirection();
+                            if (direction >= 0) { //invalid direction is -1
+                                guiRobot.move(direction);
+                                guiPanel.paintImmediately(guiPanel.getBounds());
+                                repaint();
+                                Thread.sleep(120);
                             }
-                            bCheck = false;
-                            break;
+                        }
+                        bCheck = false;
+                        break;
 
-                        case '2':
-                            guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
-                            guiPanel.setRobot(guiRobot);
-                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                            //this limits the robot's moves, in case it takes too long to find the exit.
-                            {
-                                int direction = guiRobot.chooseMoveDirection();
-                                if (direction >= 0) {  //invalid direction is -1
-                                    guiRobot.move(direction);
-                                    guiPanel.paintImmediately(guiPanel.getBounds());
-                                    Thread.sleep(100);
-                                }
+                    case '2':
+                        guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
+                        guiPanel.setRobot(guiRobot);
+                        for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
+                        //this limits the robot's moves, in case it takes too long to find the exit.
+                        {
+                            int direction = guiRobot.chooseMoveDirection();
+                            if (direction >= 0) {  //invalid direction is -1
+                                guiRobot.move(direction);
+                                guiPanel.paintImmediately(guiPanel.getBounds());
+                                Thread.sleep(100);
                             }
-                            bCheck = false;
-                            break;
-
-                        case '3':
-                            guiRobot = new RightHandRobot(guiMaze); //show the bot the maze.
-                            guiPanel.setRobot(guiRobot);
-                            for (int k = 0; k < 10000 && !guiRobot.solved(); k++)
-                            //this limits the robot's moves, in case it takes too long to find the exit.
-                            {
-                                int direction = guiRobot.chooseMoveDirection();
-                                if (direction >= 0) {  //invalid direction is -1
-                                    guiRobot.move(direction);
-                                    guiPanel.paintImmediately(guiPanel.getBounds());
-                                    Thread.sleep(100);
-                                }
-                            }
-                            bCheck = false;
-                            break;
-                    }
-                    Thread.sleep(500);
+                        }
+                        bCheck = false;
+                        break;
                 }
-                while (bCheck);
-                resetMaze();
-            } catch (Exception e) {
-                System.out.println("This shouldn't happen.");
+                Thread.sleep(500);
             }
+            while (bCheck);
+            resetMaze();
+        } catch (Exception e) {
+            System.out.println("This shouldn't happen.");
         }
+    }
 
     /**
      * Method to reset the Maze.
