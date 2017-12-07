@@ -17,6 +17,7 @@ public class MazePanel extends JPanel implements KeyListener {
     //Create a Maze and Robot object.
     private Maze lostGui;
     private Robot robotGui;
+    private Robot dirtyRobot;
     double userX = 0, userY = 0;
     private int direction;
 
@@ -25,6 +26,7 @@ public class MazePanel extends JPanel implements KeyListener {
     public MazePanel() {
         lostGui = null;
         robotGui = null;
+        dirtyRobot = null;
         this.addKeyListener(this);
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
@@ -80,6 +82,11 @@ public class MazePanel extends JPanel implements KeyListener {
                         g.setColor(Color.GREEN);
                         g.fillRect(j*40,i*40,40,40);
                     }
+
+                    else if (lostGui.getCell(i, j) == 'd') {
+                        g.setColor(Color.ORANGE);
+                        g.fillOval(40+10,40+10,20,20);
+                    }
                 }
             }
         }
@@ -95,6 +102,7 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
             direction = 1;
             robotGui.move(direction);
+//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
             repaint();
         }
         //check to see if it hits enemy
@@ -105,6 +113,7 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
             direction = 2;
             robotGui.move(direction);
+//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
             repaint();
         }
     }
@@ -113,6 +122,7 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
         direction = 3;
             robotGui.move(direction);
+//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
             repaint();
         }
     }
@@ -121,6 +131,7 @@ public class MazePanel extends JPanel implements KeyListener {
         if (!robotGui.solved()){
             direction = 4;
             robotGui.move(direction);
+//            dirtyRobot.move(dirtyRobot.chooseMoveDirection());
             repaint();
         }
     }

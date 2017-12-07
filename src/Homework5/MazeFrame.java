@@ -28,10 +28,10 @@ public class MazeFrame extends JFrame {
     private File guiFile;  //Load the Maze file object.
     private Maze guiMaze;  //communicate the Maze with the Robot.
     private Robot guiRobot;  //communicates the Maze with the Robot.
+    private Robot dirtyRobot;
     private MazePanel guiPanel; //Creates a Panel
     private Boolean bCheck;
     private char robotChar;
-    private int direction;
     JMenuItem fileSolveMenuItem;
     JMenuItem fileExitMenuItem;
     JMenuItem mazeLoadFileMenuItem;
@@ -158,6 +158,11 @@ public class MazeFrame extends JFrame {
             else if (e.getSource() == robotUserMenuItem) {
                 guiRobot = new RightHandRobot(guiMaze);
                 guiPanel.setRobot(guiRobot);
+//                dirtyRobot = new RightHandRobot(guiMaze);
+//                dirtyRobot.setName('d');
+//                dirtyRobot.setColLocation(10);
+//                dirtyRobot.setRowLocation(10);
+//                guiPanel.setRobot(dirtyRobot);
             }
         }
 
