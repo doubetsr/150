@@ -92,29 +92,37 @@ public class MazePanel extends JPanel implements KeyListener {
     }
 
     public void up(){
-        direction = 1;
-        robotGui.move(direction);
-        repaint();
+        if (!robotGui.solved()){
+            direction = 1;
+            robotGui.move(direction);
+            repaint();
+        }
         //check to see if it hits enemy
         //check to see if it finished maze
     }
 
     public void right(){
-        direction = 2;
-        robotGui.move(direction);
-        repaint();
+        if (!robotGui.solved()){
+            direction = 2;
+            robotGui.move(direction);
+            repaint();
+        }
     }
 
     public void down(){
+        if (!robotGui.solved()){
         direction = 3;
-        robotGui.move(direction);
-        repaint();
+            robotGui.move(direction);
+            repaint();
+        }
     }
 
     public void left(){
-        direction = 4;
-        robotGui.move(direction);
-        repaint();
+        if (!robotGui.solved()){
+            direction = 4;
+            robotGui.move(direction);
+            repaint();
+        }
     }
 
     @Override
