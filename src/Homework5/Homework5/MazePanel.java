@@ -1,8 +1,7 @@
-package Homework5;
+package Homework5.Homework5;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

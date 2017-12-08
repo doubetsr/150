@@ -158,7 +158,7 @@ public class MazeFrame extends JFrame {
 
             //listener to initiate the user controlled robot.
             else if (e.getSource() == robotUserMenuItem) {
-                guiRobot = new RightHandRobot(guiMaze);
+                guiRobot = new UserRobot(guiMaze);
                 guiPanel.setRobot(guiRobot);
                 guiPanel.setDirtyRobot();
             }

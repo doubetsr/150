@@ -1,4 +1,4 @@
-package Homework5;
+package Homework5.Homework5;
 
 import javax.swing.*;
 import java.io.File;

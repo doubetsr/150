@@ -1,6 +1,5 @@
 package Homework4;
 
-import Homework5.Maze;
 import Homework5.Robot;
 
 import javax.swing.*;
