@@ -161,6 +161,7 @@ public class MazeFrame extends JFrame {
                 guiRobot = new UserRobot(guiMaze);
                 guiPanel.setRobot(guiRobot);
                 guiPanel.setDirtyRobot();
+                robotMenu.setEnabled(false);
             }
         }
 

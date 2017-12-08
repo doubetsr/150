@@ -173,7 +173,8 @@ public class Maze {
         }
 
         JOptionPane.showMessageDialog(null,
-                "Congratulations you Scored  " + score + "  points");
+                "Congratulations you Scored  " + score + "  points"
+        + "\n\nTo reset the game load a Maze from the Menu.");
     }
 
     /**

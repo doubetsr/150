@@ -114,22 +114,46 @@ public class MazePanel extends JPanel implements KeyListener {
         }
     }
 
-    public void solveMove(){
-        if (!robotGui.solved()){
-            robotGui.move(direction);
-            direction = dirtyRobot.chooseMoveDirection();
-            dirtyRobot.move(direction);
-            if (lostGui.getCell(lostGui.getExitRow(),lostGui.getExitCol())
-                    == ' '){
-                lostGui.setCell(lostGui.getExitRow(),lostGui.getExitCol(),'X');
-            }
-            if (lostGui.getCell(lostGui.getStartRow(),lostGui.getStartCol())
-                    == ' '){
-                lostGui.setCell(lostGui.getStartRow(),lostGui.getStartCol(),'*');
-            }
-            repaint();
+    public boolean trapped(){
+        if ( !lostGui.openCell(robotGui.getRowLocation() -1,robotGui.getColLocation()) &&
+                !lostGui.openCell(robotGui.getRowLocation() +1,robotGui.getColLocation()) &&
+                !lostGui.openCell(robotGui.getRowLocation() ,robotGui.getColLocation()-1) &&
+                !lostGui.openCell(robotGui.getRowLocation() ,robotGui.getColLocation()+1)) {
+
+            return true;
         }
-        else{
+
+        else {
+            return false;
+        }
+    }
+
+    public void solveMove(){
+
+        if (!robotGui.solved()){
+            if (trapped()){
+                lostGui.calcScore();
+            }
+            else {
+                robotGui.move(direction);
+                direction = dirtyRobot.chooseMoveDirection();
+                dirtyRobot.move(direction);
+                if (lostGui.getCell(lostGui.getExitRow(), lostGui.getExitCol())
+                        == ' ') {
+                    lostGui.setCell(lostGui.getExitRow(), lostGui.getExitCol(), 'X');
+                }
+                if (lostGui.getCell(lostGui.getStartRow(), lostGui.getStartCol())
+                        == ' ') {
+                    lostGui.setCell(lostGui.getStartRow(), lostGui.getStartCol(), '*');
+                }
+                repaint();
+            }
+        }
+        else if (trapped() && !robotGui.solved()){
+            lostGui.calcScore();
+        }
+
+        else if (robotGui.solved()){
             lostGui.calcScore();
         }
     }
