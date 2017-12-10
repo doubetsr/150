@@ -38,6 +38,11 @@ public class MazePanel extends JPanel implements KeyListener {
      * char 'r' is the robot
      * char 'S' is the start
      * char 'X' is the finish
+     * char 'd' is the computer robot
+     * char 'e' is for green
+     * char 'f' is for yellow
+     * char 'g' is for orange
+     * char 'h' is for red
      * @param g
      */
     public void paintComponent(Graphics g) {
@@ -55,7 +60,7 @@ public class MazePanel extends JPanel implements KeyListener {
                     }
 
                     //set the robot circle as half the Width and Height of a cell.
-                    //Also, set background to white.
+                    //Also, set background to white and the robot blue.
                     else if (lostGui.getCell(i, j) == 'r') {
                         g.setColor(Color.WHITE);
                         g.fillRect(j*40,i*40,40,40);
@@ -77,6 +82,7 @@ public class MazePanel extends JPanel implements KeyListener {
                         g.fillOval(40+10,40+10,20,20);
                     }
 
+                    //set the computer robot to red.
                     else if (lostGui.getCell(i, j) == 'd') {
                         g.setColor(Color.WHITE);
                         g.fillRect(j*40,i*40,40,40);
@@ -84,26 +90,31 @@ public class MazePanel extends JPanel implements KeyListener {
                         g.fillOval(j*40+10,i*40+10,20,20);
                     }
 
+                    //set the exit to another unused color
                     else if (lostGui.getCell(i, j) == 'X') {
                         g.setColor(Color.darkGray);
                         g.fillRect(j*40,i*40,40,40);
                     }
 
+                    //set the first cell move to green.
                     else if (lostGui.getCell(i, j) == 'e') {
                         g.setColor(Color.GREEN);
                         g.fillRect(j*40,i*40,40,40);
                     }
 
+                    //set the second cell move to yellow.
                     else if (lostGui.getCell(i, j) == 'f') {
                         g.setColor(Color.YELLOW);
                         g.fillRect(j*40,i*40,40,40);
                     }
 
+                    //set the third cell move to orange.
                     else if (lostGui.getCell(i, j) == 'g') {
                         g.setColor(Color.ORANGE);
                         g.fillRect(j*40,i*40,40,40);
                     }
 
+                    //set the final cell move to red.
                     else if (lostGui.getCell(i, j) == 'h') {
                         g.setColor(Color.RED);
                         g.fillRect(j*40,i*40,40,40);
@@ -114,6 +125,10 @@ public class MazePanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Create a method to determine if the user robot is stuck in the maze.
+     * @return
+     */
     public boolean trapped(){
         if ( !lostGui.openCell(robotGui.getRowLocation() -1,robotGui.getColLocation()) &&
                 !lostGui.openCell(robotGui.getRowLocation() +1,robotGui.getColLocation()) &&
@@ -128,6 +143,11 @@ public class MazePanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Create a method to determine whether the game is over or if the user
+     * can still make a move.  The method will be run every time one
+     * of the arrow keys is pressed.
+     */
     public void solveMove(){
 
         if (!robotGui.solved()){
@@ -158,6 +178,9 @@ public class MazePanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Create a method for the MazeFrame to set the computer robot.
+     */
     public void setDirtyRobot(){
         dirtyRobot = new RightHandRobot(lostGui);
         dirtyRobot.setName('d');
@@ -165,6 +188,9 @@ public class MazePanel extends JPanel implements KeyListener {
         dirtyRobot.setRowLocation(lostGui.exitrow);
     }
 
+    /**
+     * Method to move the user robot up if the up key is pressed.
+     */
     public void up(){
         direction = 1;
         solveMove();
@@ -172,27 +198,45 @@ public class MazePanel extends JPanel implements KeyListener {
         //check to see if it finished maze
     }
 
+    /**
+     * Method to move the user robot right if the right key is pressed.
+     */
     public void right(){
         direction = 2;
         solveMove();
 
     }
 
+    /**
+     * Method to move the user robot down if the down key is pressed.
+     */
     public void down(){
         direction = 3;
         solveMove();
     }
 
+    /**
+     * Method to move the user robot left if the left key is pressed.
+     */
     public void left(){
         direction = 4;
         solveMove();
     }
 
+    /**
+     * Override the KeTyped as part of the interface demands.
+     * This will be left empty we will use keyPressed.
+     * @param e
+     */
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {}
 
-    }
-
+    /**
+     * use the KeyEvent with the proper key call for
+     * up, down,left, and right keys.  call their
+     * corresponding methods.
+     * @param e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -202,7 +246,6 @@ public class MazePanel extends JPanel implements KeyListener {
         if (code == KeyEvent.VK_DOWN) {
             down();
         }
-
         if (code == KeyEvent.VK_LEFT) {
             left();
         }
@@ -211,10 +254,13 @@ public class MazePanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Override the KeReleased as part of the interface demands.
+     * This will be left empty we will use keyPressed.
+     * @param e
+     */
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 
     /**
      * Create a setMaze method to setup the maze object.

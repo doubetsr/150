@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * CSIT 150 HWK 5
+ * CSIT 150 HWK4
  * MazeFrame extends the JFrame and uses MazePanel to create a GUI to watch
  * the Robot Solve the Maze.  There are 3 menu items including File, Maze, and Robot.
  * File has two options Solve and Exit.  Solve will not be available until the Maze
@@ -35,9 +35,11 @@ public class MazeFrame extends JFrame {
     JMenuItem mazeLoadFileMenuItem;
     JMenuItem robotLookAheadMenuItem;
     JMenuItem robotRightMenuItem;
+    JMenuItem aboutHelpMenuItem;
     JMenu fileMenu;
     JMenu robotMenu;
     JMenu mazeMenu;
+    JMenu helpMenu;
     JMenuBar menuBar;
 
     /**
@@ -64,6 +66,7 @@ public class MazeFrame extends JFrame {
         fileMenu = new JMenu("File");
         mazeMenu = new JMenu("Maze");
         robotMenu = new JMenu("Robot");
+        helpMenu = new JMenu("Help");
 
         // Create the menu items
         fileSolveMenuItem = new JMenuItem("Solve");
@@ -72,15 +75,16 @@ public class MazeFrame extends JFrame {
         robotLookAheadMenuItem = new JMenuItem("LookAhead");
         robotRightMenuItem = new JMenuItem("RightHand");
 
-        // Add these menu items into fileMenu
+
+        // Add menu items into fileMenu
         fileMenu.add(fileSolveMenuItem);
         fileMenu.addSeparator();
         fileMenu.add(fileExitMenuItem);
 
-        // Add these menu items into mazeMenu
+        // Add menu items into mazeMenu
         mazeMenu.add(mazeLoadFileMenuItem);
 
-        // Add these menu items into robotMenu
+        // Add menu items into robotMenu
         robotMenu.add(robotRightMenuItem);
         robotMenu.addSeparator();
         robotMenu.add(robotLookAheadMenuItem);
@@ -93,14 +97,17 @@ public class MazeFrame extends JFrame {
         fileSolveMenuItem.addActionListener(listener);
         robotLookAheadMenuItem.addActionListener(listener);
         robotRightMenuItem.addActionListener(listener);
+        aboutHelpMenuItem.addActionListener(listener);
 
-        //set values false
+        //set values for solveMenuitem and false
         fileSolveMenuItem.setEnabled(false);
         robotMenu.setEnabled(false);
 
+        //add the items to the menuBar.
         menuBar.add(fileMenu);
         menuBar.add(mazeMenu);
         menuBar.add(robotMenu);
+        menuBar.add(helpMenu);
     }
 
     /**
